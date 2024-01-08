@@ -44,29 +44,31 @@
     </div>
   </body>
   <script>
-function setCursorToEnd(element) {
+function o(e) {
   let range = document.createRange();
   let sel = window.getSelection();
-  range.selectNodeContents(element);
+  range.selectNodeContents(e);
   range.collapse(false);
   sel.removeAllRanges();
   sel.addRange(range);
   div.style.fontSize = `${Math.max(50, 120 - Math.sqrt(div.innerText.length*50))}px`;
+  localStorage.setItem('memo', div.innerText);
 }
-
 var div = document.getElementsByTagName('div')[0];
+div.innerText = localStorage.getItem('memo') ?? "";
+o(div);
 
 div.addEventListener('input', function() {
-  setCursorToEnd(this);
+  o(this);
 });
 div.addEventListener('click', function() {
-  setCursorToEnd(this);
+  o(this);
 });
 div.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'Home' || e.key === 'End') {
     e.preventDefault();
   }
-  setCursorToEnd(this);
+  o(this);
 });
   </script>
 </html>
