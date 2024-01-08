@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Write memos">
+    <meta name="keywords" content="MemoPad">
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      html, body {
+        background-color: black;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        cursor: default;
+      }
+
+      main {
+        display: table;
+        width: 100%;
+        height: 100%;
+      }
+
+      div {
+        background-color: #22222A;
+        color: white;
+        font-size: 120px;
+        font-family: monospace;
+        text-align: center;
+        display: table-cell; 
+        vertical-align: middle;
+        caret-color: transparent;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+      </style>
+    <title>MemoPad</title>
+</head>
+  <body>
+    <main>
+      <div contenteditable="true"></div>
+    </div>
+  </body>
+  <script>
+function setCursorToEnd(element) {
+  let range = document.createRange();
+  let sel = window.getSelection();
+  range.selectNodeContents(element);
+  range.collapse(false);
+  sel.removeAllRanges();
+  sel.addRange(range);
+  div.style.fontSize = `${Math.max(50, 120 - Math.sqrt(div.innerText.length*50))}px`;
+}
+
+var div = document.getElementsByTagName('div')[0];
+
+div.addEventListener('input', function() {
+  setCursorToEnd(this);
+});
+div.addEventListener('click', function() {
+  setCursorToEnd(this);
+});
+div.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'Home' || e.key === 'End') {
+    e.preventDefault();
+  }
+  setCursorToEnd(this);
+});
+  </script>
+</html>
